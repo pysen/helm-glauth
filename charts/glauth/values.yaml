@@ -98,32 +98,32 @@ service:
   # How do we expose the server to the outside world?
   # --------------------------------------------------------------------------------
 
-  #type: ClusterIP
-  #ports:
-  #  - name: ldap
-  #    internal: 3893
-  #    external: 3893
-  #  - name: ldaps
-  #    internal: 3894
-  #    external: 3894
-  #  - name: web
-  #    internal: 5555
-  #    external: 5555
-
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: ldap
       internal: 3893
       external: 3893
-      node: 30389
     - name: ldaps
       internal: 3894
       external: 3894
-      node: 30636
     - name: web
       internal: 5555
       external: 5555
-      node: 30555
+
+  #type: NodePort
+  #ports:
+  #  - name: ldap
+  #    internal: 3893
+  #    external: 3893
+  #    node: 30389
+  #  - name: ldaps
+  #    internal: 3894
+  #    external: 3894
+  #    node: 30636
+  #  - name: web
+  #    internal: 5555
+  #    external: 5555
+  #    node: 30555
 
 serviceAccount:
   # Specifies whether a service account should be created
