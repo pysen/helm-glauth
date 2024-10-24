@@ -28,14 +28,28 @@ nameOverride: ""
 fullnameOverride: ""
 
 config:
+  file: |-
+    debug = true
+    [ldap]
+      enabled = true
+      # run on a non privileged port
+      listen = "0.0.0.0:3893"
 
-  # --------------------------------------------------------------------------------
+    [ldaps]
+      # to enable ldaps generate a certificate, eg. with:
+      # openssl req -x509 -newkey rsa:4096 -keyout glauth.key -out glauth.crt -days 365 -nodes -subj '/CN=`hostname`'
+      enabled = false
+      listen = "0.0.0.0:3894"
+      cert = "glauth.crt"
+      key = "glauth.key"
+
+# --------------------------------------------------------------------------------
   # Will be used, if our backend is SQLite, to create a storage volume for the db
   # Also, to store cert information if using LDAPS
   # --------------------------------------------------------------------------------
 
-  storage:
-    size: 20G
+  # storage:
+    # size: 20G
 
     # You may wish to override the access type; for instance if you
     # are setting up a single node with hostPath, since hostPath
@@ -56,14 +70,14 @@ config:
 backend:
 
   # Possible values: 'config' or 'database'
-  type: database
+  #type: database
 
   # If provided, this is the name of a local config file that will be
   # stored in our configuration map.
   # Note that when using 'config' you could simply edit `sample-simple.cfg`
   # and not provide an alternate file; you could similarly edit `sample-database.cfg`
   # to support a non-SQLIte database.
-  #file: example.cfg
+  file: config.cfg
 
 database:
 

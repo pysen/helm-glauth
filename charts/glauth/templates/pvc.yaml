@@ -23,4 +23,5 @@ spec:
     requests:
       storage: {{ .Values.config.storage.size }}
 {{- end }}
+{{- else if .Values.config.file }}
 {{- end }}

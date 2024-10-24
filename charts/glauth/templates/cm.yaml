@@ -5,7 +5,7 @@ metadata:
 data:
 {{- if .Values.backend.file }}
   config.cfg: |-
-{{ .Files.Get .Values.backend.file | indent 4 }}
+{{- .Values.config.file | nindent 4 }}
 {{- else if eq .Values.backend.type "config" }}
   config.cfg: |-
 {{ .Files.Get "config/sample-simple.cfg" | indent 4 }}
