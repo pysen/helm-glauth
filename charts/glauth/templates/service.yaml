@@ -10,12 +10,30 @@ spec:
   selector:
     app: {{ template "glauth.fullname" . }}
   ports:
-{{- range $port := .Values.service.ports }}
-  - name: {{ $port.name }}
-    port: {{ $port.external }}
-    targetPort: {{ $port.internal }}
-{{- if $port.node }}
-    nodePort: {{ $port.node }}
+{{- with .Values.service.ldap }}
+  - name: ldap
+    port: {{ .port }}
+    targetPort: {{ .targetport }}
+{{- if eq $.Values.service.type "NodePort" }}
+    nodePort: {{ .nodeport }}
+{{- end}}
+    protocol: TCP
+{{- end}}
+{{- with .Values.service.ldaps }}
+  - name: ldaps
+    port: {{ .port }}
+    targetPort: {{ .targetport }}
+{{- if eq $.Values.service.type "NodePort" }}
+    nodePort: {{ .nodeport }}
+{{- end}}
+    protocol: TCP
+{{- end}}
+{{- with .Values.service.web }}
+  - name: web
+    port: {{ .port }}
+    targetPort: {{ .targetport }}
+{{- if eq $.Values.service.type "NodePort" }}
+    nodePort: {{ .nodeport }}
 {{- end}}
     protocol: TCP
 {{- end}}

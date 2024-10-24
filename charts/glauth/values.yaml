@@ -43,6 +43,12 @@ config:
       cert = "glauth.crt"
       key = "glauth.key"
 
+    [api]
+      enabled = true
+      internals = true # debug application performance
+      tls = false # enable TLS for production!!
+      listen = "0.0.0.0:5555"
+
 # --------------------------------------------------------------------------------
   # Will be used, if our backend is SQLite, to create a storage volume for the db
   # Also, to store cert information if using LDAPS
@@ -99,31 +105,29 @@ service:
   # --------------------------------------------------------------------------------
 
   type: ClusterIP
-  ports:
-    - name: ldap
-      internal: 3893
-      external: 3893
-    - name: ldaps
-      internal: 3894
-      external: 3894
-    - name: web
-      internal: 5555
-      external: 5555
+  ldap:
+    port: 3893
+    targetport: 3893
+  ldaps:
+    port: 3894
+    targetport: 3894
+  web:
+    port: 5555
+    targetport: 5555
 
   #type: NodePort
-  #ports:
-  #  - name: ldap
-  #    internal: 3893
-  #    external: 3893
-  #    node: 30389
-  #  - name: ldaps
-  #    internal: 3894
-  #    external: 3894
-  #    node: 30636
-  #  - name: web
-  #    internal: 5555
-  #    external: 5555
-  #    node: 30555
+  #ldap:
+  #  port: 3893
+  #  targetport: 3893
+  #  nodeport: 30389
+  #ldaps:
+  #  port: 3894
+  #  targetport: 3894
+  #  nodeport: 30636
+  #web:
+  #  port: 5555
+  #  targetport: 5555
+  #  nodeport: 30636
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -152,7 +156,7 @@ securityContext: {}
 # --------------------------------------------------------------------------------
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations: {}
     # kubernetes.io/ingress.class: nginx
