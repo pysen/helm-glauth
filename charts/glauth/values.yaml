@@ -19,7 +19,7 @@ image:
   #tag: "v2.0.0"
 
   # Testing tag
-  tag: "nightly"
+  #tag: "nightly"
 
   pullPolicy: IfNotPresent
 
