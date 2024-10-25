@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  glauth:
+  - apiVersion: v2
+    appVersion: v2.3.2
+    created: "2024-10-25T12:27:47.125370273+02:00"
+    description: A Helm chart to host GLAuth in a Kubernetes cluster
+    digest: 4705cc499b871c374f0104fbecb31da0b05d7b1726fd384dc0cf7893bef32572
+    name: glauth
+    type: application
+    urls:
+    - https://github.com/pysen/helm-glauth/releases/download/glauth-0.2.0/glauth-0.2.0.tgz
+    version: 0.2.0
+generated: "2024-10-25T12:27:47.125378373+02:00"
