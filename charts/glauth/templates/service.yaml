@@ -16,24 +16,24 @@ spec:
     targetPort: {{ .targetport }}
 {{- if eq $.Values.service.type "NodePort" }}
     nodePort: {{ .nodeport }}
-{{- end}}
+{{- end }}
     protocol: TCP
-{{- end}}
+{{- end }}
 {{- with .Values.service.ldaps }}
   - name: ldaps
     port: {{ .port }}
     targetPort: {{ .targetport }}
 {{- if eq $.Values.service.type "NodePort" }}
     nodePort: {{ .nodeport }}
-{{- end}}
+{{- end }}
     protocol: TCP
-{{- end}}
+{{- end }}
 {{- with .Values.service.web }}
   - name: web
     port: {{ .port }}
     targetPort: {{ .targetport }}
 {{- if eq $.Values.service.type "NodePort" }}
     nodePort: {{ .nodeport }}
-{{- end}}
+{{- end }}
     protocol: TCP
-{{- end}}
+{{- end }}

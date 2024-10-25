@@ -22,7 +22,7 @@ spec:
         ports:
 {{- range $port := .Values.service.ports }}
         - containerPort: {{ $port.internal }}
-{{- end}}
+{{- end }}
         command: ["/app/glauth", "-c", "/app/config/config.cfg"]
         livenessProbe:
           exec:
@@ -36,10 +36,19 @@ spec:
 {{- if eq (.Values.persistence.enabled | toString) "true" }}
         - name: {{ .Chart.Name }}-data
           mountPath: /app/config
-{{- end}}
         - name: {{ .Chart.Name }}-config
           mountPath: /app/config/config.cfg
           subPath: config.cfg
+{{- else }}
+        - name: {{ .Chart.Name }}-config
+          mountPath: /app/config
+          readOnly: true
+{{- end }}
+{{- with .Values.backend.tls }}
+        - name: {{ $.Chart.Name }}-tls
+          mountPath: {{ .mountPath }}
+          readOnly: true
+{{- end }}
         readinessProbe:
           exec:
             command:
@@ -58,9 +67,14 @@ spec:
       - name: {{ .Chart.Name }}-data
         persistentVolumeClaim:
           claimName: {{ .Chart.Name }}-data
-  {{- end}}
+  {{- end }}
 {{- else }}
-{{- end}}
+{{- end }}
       - name: {{ .Chart.Name }}-config
-        configMap:
-          name: glauth-config
+        secret:
+          secretName: glauth-config
+{{- with .Values.backend.tls }}
+      - name: {{ $.Chart.Name }}-tls
+        secret:
+          secretName: {{ .secretName }}
+{{- end }}

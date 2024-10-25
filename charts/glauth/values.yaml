@@ -30,6 +30,9 @@ fullnameOverride: ""
 config:
   file: |-
     debug = true
+    # Enable hot-reload of configuration on changes
+    # - does NOT work [ldap], [ldaps], [backend] or [api] sections
+    watchconfig = true
     [ldap]
       enabled = true
       # run on a non privileged port
@@ -40,14 +43,21 @@ config:
       # openssl req -x509 -newkey rsa:4096 -keyout glauth.key -out glauth.crt -days 365 -nodes -subj '/CN=`hostname`'
       enabled = false
       listen = "0.0.0.0:3894"
-      cert = "glauth.crt"
-      key = "glauth.key"
+      # Secret Specified in backend.tls.secretName will be mounted at backend.tls.mountPath
+      cert = "/app/tls/tls.crt"
+      key = "/app/tls/tls.key"
 
     [api]
       enabled = true
       internals = true # debug application performance
       tls = false # enable TLS for production!!
       listen = "0.0.0.0:5555"
+      cert = "/app/tls/tls.crt"
+      key = "/app/tls/tls.key"
+
+    [backend]
+      datastore = "config"
+      baseDN = "dc=glauth,dc=com"
 
 persistence:
   enabled: false
@@ -85,6 +95,10 @@ backend:
   # to support a non-SQLIte database.
   file: config.cfg
 
+  # Secret containing tls.cert & tls.key
+  # tls:
+  #   mountPath: /app/tls
+  #   secretName: chart-example-tls
 database:
 
   engine: sqlite
