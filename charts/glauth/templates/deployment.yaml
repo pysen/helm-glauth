@@ -33,7 +33,7 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 5
         volumeMounts:
-{{- if .Values.config.storage }}
+{{- if eq (.Values.persistence.enabled | toString) "true" }}
         - name: {{ .Chart.Name }}-data
           mountPath: /app/config
 {{- end}}
@@ -49,10 +49,17 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 5
       volumes:
-{{- if .Values.config.storage }}
+{{- if eq (.Values.persistence.enabled | toString) "true" }}
+  {{- if .Values.persistence.existingClaim }}
+      - name: {{ .Chart.Name }}-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.existingClaim }}
+  {{- else }}
       - name: {{ .Chart.Name }}-data
         persistentVolumeClaim:
           claimName: {{ .Chart.Name }}-data
+  {{- end}}
+{{- else }}
 {{- end}}
       - name: {{ .Chart.Name }}-config
         configMap:

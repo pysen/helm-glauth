@@ -1,27 +1,27 @@
-{{- if .Values.config.storage }}
-{{- if not .Values.config.storage.existingClaim }}
+{{- if .Values.config.persistence }}
+{{- if not .Values.config.persistence.existingClaim }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ .Chart.Name }}-data
 spec:
   accessModes:
-{{- if not .Values.config.storage.access }}
+{{- if not .Values.config.persistence.accessMode }}
     - ReadWriteMany
 {{- else }}
-    - "{{ .Values.config.storage.access }}"
+    - "{{ .Values.config.persistence.accessMode }}"
 {{- end }}
-{{- if .Values.config.storage.class }}
-  storageClassName: "{{ .Values.config.storage.class }}"
+{{- if .Values.config.persistence.storageClass }}
+  storageClassName: "{{ .Values.config.persistence.storageClass }}"
 {{- end }}
-{{- if not .Values.config.storage.mode }}
+{{- if not .Values.config.persistence.mode }}
   volumeMode: Filesystem
 {{- else }}
-  volumeMode: "{{ .Values.config.storage.mode }}"
+  volumeMode: "{{ .Values.config.persistence.mode }}"
 {{- end }}
   resources:
     requests:
-      storage: {{ .Values.config.storage.size }}
+      storage: {{ .Values.config.persistence.size }}
 {{- end }}
 {{- else if .Values.config.file }}
 {{- end }}

@@ -49,25 +49,25 @@ config:
       tls = false # enable TLS for production!!
       listen = "0.0.0.0:5555"
 
+persistence:
+  enabled: false
 # --------------------------------------------------------------------------------
   # Will be used, if our backend is SQLite, to create a storage volume for the db
   # Also, to store cert information if using LDAPS
   # --------------------------------------------------------------------------------
+  # size: 20G
 
-  # storage:
-    # size: 20G
-
-    # You may wish to override the access type; for instance if you
-    # are setting up a single node with hostPath, since hostPath
-    # does not support multiple access but we are requesting that.
-    # access: readWriteOnce
-    #
-    # Or you could make sure that a different storageClass
-    # is picked upon instantiation.
-    # class: xxxx
-    #
-    # Alternatively, you could use an existing claim.
-    # existingClaim: true
+  # You may wish to override the access type; for instance if you
+  # are setting up a single node with hostPath, since hostPath
+  # does not support multiple access but we are requesting that.
+  # accessMode: readWriteOnce
+  #
+  # Or you could make sure that a different storageClass
+  # is picked upon instantiation.
+  # storageClass: ""
+  #
+  # Alternatively, you could use an existing claim.
+  # existingClaim: ""
 
 # --------------------------------------------------------------------------------
 # This is in addition to specifying backend type in the cfg file
