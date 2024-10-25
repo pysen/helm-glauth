@@ -51,7 +51,7 @@ config:
 
 persistence:
   enabled: false
-# --------------------------------------------------------------------------------
+  # --------------------------------------------------------------------------------
   # Will be used, if our backend is SQLite, to create a storage volume for the db
   # Also, to store cert information if using LDAPS
   # --------------------------------------------------------------------------------
@@ -69,14 +69,14 @@ persistence:
   # Alternatively, you could use an existing claim.
   # existingClaim: ""
 
-# --------------------------------------------------------------------------------
-# This is in addition to specifying backend type in the cfg file
-# --------------------------------------------------------------------------------
+  # --------------------------------------------------------------------------------
+  # This is in addition to specifying backend type in the cfg file
+  # --------------------------------------------------------------------------------
 
 backend:
 
   # Possible values: 'config' or 'database'
-  #type: database
+  # type: database
 
   # If provided, this is the name of a local config file that will be
   # stored in our configuration map.
@@ -115,19 +115,19 @@ service:
     port: 5555
     targetport: 5555
 
-  #type: NodePort
-  #ldap:
-  #  port: 3893
-  #  targetport: 3893
-  #  nodeport: 30389
-  #ldaps:
-  #  port: 3894
-  #  targetport: 3894
-  #  nodeport: 30636
-  #web:
-  #  port: 5555
-  #  targetport: 5555
-  #  nodeport: 30636
+  # type: NodePort
+  # ldap:
+  #   port: 3893
+  #   targetport: 3893
+  #   nodeport: 30389
+  # ldaps:
+  #   port: 3894
+  #   targetport: 3894
+  #   nodeport: 30636
+  # web:
+  #   port: 5555
+  #   targetport: 5555
+  #   nodeport: 30636
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -156,7 +156,7 @@ securityContext: {}
 # --------------------------------------------------------------------------------
 
 ingress:
-  enabled: true
+  enabled: false
   className: ""
   annotations: {}
     # kubernetes.io/ingress.class: nginx
